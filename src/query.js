@@ -42,8 +42,14 @@ const Courses = () => (
   >
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>
-      if (error) return <p>Error :</p>
-      return <p>`${data}</p>
+      if (error) {
+        console.log(error)
+        return <p>Error :</p>
+      }
+      {
+        console.log(data)
+        return <p>`${data}</p>
+      }
     }}
   </Query>
 )

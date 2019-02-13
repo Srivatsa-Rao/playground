@@ -3,9 +3,23 @@ import logo from './logo.svg'
 import { ApolloProvider } from 'react-apollo'
 import './App.css'
 import Courses from './query'
+import { createHttpLink } from 'apollo-link-http'
+import { setContext } from 'apollo-link-context'
 import ApolloClient from 'apollo-boost'
-const client = new ApolloClient({
+
+const httpLink = createHttpLink({
   uri: 'https://everest.getproperly.io/api/graphql'
+})
+const authLink = setContext((_, { headers }) => ({
+  headers: {
+    ...headers,
+
+    'x-parse-session-token': 'r:yexpJckGKPVMNaCIObeYNip9rnygPTiQ'
+  }
+}))
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink)
 })
 
 class App extends Component {
