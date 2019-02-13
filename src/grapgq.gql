@@ -1,0 +1,47 @@
+jobDetail($role:RoleType = CLEANER,
+$languageCode:String = "en",
+$id:ID= "1234",
+$isHost:Boolean = true){  
+   Job(role:$role,
+   id:$id,
+   languageCode:$languageCode,
+   isHost:$isHost)   {  
+      ...propertyDetails    progress      {  
+         ...progressSummaryFields
+      }      checklists      {  
+         ...checklistFields
+      }      cleaners      {  
+         ...cleanerFields
+      }      status    ownerRole    job      {  
+         ...jobFields
+      }      sender      {  
+         ...senderFields
+      }      booking      {  
+         ...bookingFields
+      }      problems      {  
+         ...problemFields
+      }      lastUpdatedAt    permittedFeatures
+   }
+}fragment progressSummaryFields on progressSummaryFields{  
+   id  actualStartTime  actualEndTime  startLocation   {  
+      latitude,
+      longitude
+   }   endLocation   {  
+      latitude,
+      longitude
+   }   completedTaskCount  problemCount  additionalReportCount  verificationPictureCount  feedbackGiven # Boolean
+}fragment senderFields on senderFields{  
+   id  companyName   userData   {  
+      ...userFields
+   }
+}fragment jobFields on jobFields{  
+   id  title  duration  scheduledStartTime  scheduledEndTime  startTimeType  totalTaskCount  totalChecklistCount  totalVerificationPictureCount  offeredPrice  note
+}fragment taskFields on taskFields{  
+   id  icon  note  notePictureIdentifer  isComplete  completedOn  centerX  centerY
+}fragment verificationPhotoFields on verificationPhotoFields{  
+   id  stepTitle  pictureIdentifier  date
+}fragment stepFields on stepFields{  
+   id  pictureIdentifier  note  room  section  title  isComplete  isVerificationRequired  isVerificationComplete  tasks   {  
+      ...taskFields
+   }   incompleteTaskCount
+}
