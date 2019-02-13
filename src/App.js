@@ -5,21 +5,22 @@ import './App.css'
 import Courses from './query'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import ApolloClient from 'apollo-boost'
 
 const httpLink = createHttpLink({
-  uri: 'https://everest.getproperly.io/api/graphql'
+  uri: 'https://everest.getproperly.io/api/graphql/'
 })
 const authLink = setContext((_, { headers }) => ({
   headers: {
     ...headers,
-
     'x-parse-session-token': 'r:yexpJckGKPVMNaCIObeYNip9rnygPTiQ'
   }
 }))
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink)
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 })
 
 class App extends Component {
@@ -33,11 +34,11 @@ class App extends Component {
           </p>
           <ApolloProvider client={client}>
             <div>
-              <h2>My first Apollo app</h2>
+              <h2>asdasd app</h2>
             </div>
             <Courses />
           </ApolloProvider>
-          Learn React
+          Apollo app
         </header>
       </div>
     )
